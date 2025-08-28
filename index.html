@@ -35,6 +35,7 @@
             background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
             animation: glow 2s ease-in-out infinite alternate, gradient 3s ease infinite;
             text-shadow: 0 0 20px rgba(0, 245, 255, 0.5);
         }
@@ -139,91 +140,82 @@
         
         .habit-button {
             flex: 1;
-            padding: 15px;
+            padding: 12px 20px;
             border: none;
-            border-radius: 12px;
+            border-radius: 10px;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-family: 'Inter', sans-serif;
         }
         
-        .success-btn {
-            background: linear-gradient(45deg, #00ff88, #00cc6a);
+        .habit-button.done {
+            background: linear-gradient(45deg, #00ff88, #00cc66);
             color: white;
             box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
         }
         
-        .success-btn:hover {
+        .habit-button.done:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 255, 136, 0.4);
+            box-shadow: 0 6px 20px rgba(0, 255, 136, 0.4);
         }
         
-        .fail-btn {
-            background: linear-gradient(45deg, #ff4757, #ff3742);
+        .habit-button.skip {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
             color: white;
-            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
         }
         
-        .fail-btn:hover {
+        .habit-button.skip:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 71, 87, 0.4);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
         }
         
-        .button-selected {
-            transform: scale(0.95);
-            opacity: 0.7;
+        .habit-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
         }
         
-        .penalties-section {
+        .stats-container {
             margin-top: 30px;
-            padding: 25px;
-            background: rgba(255, 71, 87, 0.1);
-            border-radius: 15px;
-            border: 1px solid rgba(255, 71, 87, 0.3);
-            display: none;
-        }
-        
-        .penalties-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: #ff4757;
             text-align: center;
-        }
-        
-        .penalty-item {
+            padding: 20px;
             background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 245, 255, 0.3);
+        }
+        
+        .stats-title {
+            font-size: 1.2rem;
+            color: #00f5ff;
+            margin-bottom: 15px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .stat-item {
             padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 10px;
-            margin-bottom: 10px;
-            border-left: 4px solid #ff4757;
+            border: 1px solid rgba(0, 245, 255, 0.2);
         }
         
-        .penalty-text {
-            font-size: 0.95rem;
-            line-height: 1.4;
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #00f5ff;
+            margin-bottom: 5px;
         }
         
-        .reset-btn {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            border: none;
-            border-radius: 12px;
-            color: white;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: all 0.3s ease;
-        }
-        
-        .reset-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        .stat-label {
+            font-size: 0.9rem;
+            color: #cccccc;
         }
     </style>
 </head>
@@ -232,162 +224,164 @@
         <h1 class="title">ГигантМЕН</h1>
         
         <div class="verse">
-            <div class="arabic-text">إِنَّ اللَّهَ لَا يُغَيِّرُ مَا بِقَوْمٍ حَتَّىٰ يُغَيِّرُوا مَا بِأَنفُسِهِمْ</div>
-            <div class="translation">Поистине, Аллах не меняет положения людей, пока они сами не изменят того, что у них в душах</div>
-            <div class="reference">Сура Ар-Раад, аят 11</div>
+            <div class="arabic-text">وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مَخْرَجًا</div>
+            <div class="translation">И кто боится Аллаха, тому Он создаст выход</div>
+            <div class="reference">Коран 65:2</div>
         </div>
         
         <div class="progress-container">
-            <div class="progress-label">Эффективность дня</div>
+            <div class="progress-label">Прогресс дня</div>
             <div class="progress-bar">
                 <div class="progress-fill" id="progressFill"></div>
             </div>
-            <div class="progress-text" id="progressText">0 / 16 привычек</div>
+            <div class="progress-text" id="progressText">0 из 5 привычек выполнено</div>
         </div>
         
-        <div id="habitsContainer">
-            <!-- Привычки будут добавлены через JavaScript -->
+        <div class="habit-card">
+            <div class="habit-text">🌅 Утренняя молитва (Фаджр)</div>
+            <div class="button-container">
+                <button class="habit-button done" onclick="markHabit(0, 'done')">Выполнено</button>
+                <button class="habit-button skip" onclick="markHabit(0, 'skip')">Пропустить</button>
+            </div>
         </div>
         
-        <div class="penalties-section" id="penaltiesSection">
-            <div class="penalties-title">Штрафы за невыполненные привычки</div>
-            <div id="penaltiesList"></div>
+        <div class="habit-card">
+            <div class="habit-text">📖 Чтение Корана (15 минут)</div>
+            <div class="button-container">
+                <button class="habit-button done" onclick="markHabit(1, 'done')">Выполнено</button>
+                <button class="habit-button skip" onclick="markHabit(1, 'skip')">Пропустить</button>
+            </div>
         </div>
         
-        <button class="reset-btn" onclick="resetDay()">Начать новый день</button>
+        <div class="habit-card">
+            <div class="habit-text">🤲 Зикр (100 раз)</div>
+            <div class="button-container">
+                <button class="habit-button done" onclick="markHabit(2, 'done')">Выполнено</button>
+                <button class="habit-button skip" onclick="markHabit(2, 'skip')">Пропустить</button>
+            </div>
+        </div>
+        
+        <div class="habit-card">
+            <div class="habit-text">💪 Физические упражнения</div>
+            <div class="button-container">
+                <button class="habit-button done" onclick="markHabit(3, 'done')">Выполнено</button>
+                <button class="habit-button skip" onclick="markHabit(3, 'skip')">Пропустить</button>
+            </div>
+        </div>
+        
+        <div class="habit-card">
+            <div class="habit-text">🌙 Вечерняя молитва (Иша)</div>
+            <div class="button-container">
+                <button class="habit-button done" onclick="markHabit(4, 'done')">Выполнено</button>
+                <button class="habit-button skip" onclick="markHabit(4, 'skip')">Пропустить</button>
+            </div>
+        </div>
+        
+        <div class="stats-container">
+            <div class="stats-title">Статистика</div>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" id="completedToday">0</div>
+                    <div class="stat-label">Выполнено сегодня</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="streak">0</div>
+                    <div class="stat-label">Дней подряд</div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
-        const habits = [
-            { text: "Встань вовремя на Фаджр", penalty: "Ложись вовремя что бы вставать на намаз, сделай все суннат намазы" },
-            { text: "Почитай утренние аскары", penalty: "1000 истигъфар" },
-            { text: "Держи пост", penalty: null },
-            { text: "Сделай пробежку", penalty: "Пробежка вечером" },
-            { text: "Утренняя зарядка и растяжка", penalty: "Сходи на турники" },
-            { text: "Полезный завтрак", penalty: "Не есть до обеда" },
-            { text: "Планирование дня", penalty: "10 страниц книги" },
-            { text: "Нормально поработай", penalty: "Поработай в воскресенье час" },
-            { text: "Почитай Коран", penalty: "5 страниц" },
-            { text: "Вечерние аскары", penalty: "1000 истигъфар" },
-            { text: "Почитай книгу", penalty: "5 страниц книги" },
-            { text: "Все намазы сделай вовремя и смиренно", penalty: "Встань на ночные" },
-            { text: "Займись арабским языком", penalty: "30 минут арабского" },
-            { text: "Сделай прогулку", penalty: "Прогулка утром" },
-            { text: "Ложись вовремя", penalty: "1000 истигъфар" },
-            { text: "Встанешь на Тахаджуд и витр намаз?", penalty: "100 салаватов" }
+        // Состояние привычек
+        let habits = [
+            { name: 'Утренняя молитва', completed: false },
+            { name: 'Чтение Корана', completed: false },
+            { name: 'Зикр', completed: false },
+            { name: 'Физические упражнения', completed: false },
+            { name: 'Вечерняя молитва', completed: false }
         ];
-        
-        let habitStatus = {};
-        let completedCount = 0;
-        
-        function initializeHabits() {
-            const container = document.getElementById('habitsContainer');
-            container.innerHTML = '';
+
+        // Загрузка данных из localStorage
+        function loadData() {
+            const savedHabits = localStorage.getItem('gigantmen-habits');
+            const savedDate = localStorage.getItem('gigantmen-date');
+            const today = new Date().toDateString();
             
-            habits.forEach((habit, index) => {
-                const habitCard = document.createElement('div');
-                habitCard.className = 'habit-card';
-                habitCard.innerHTML = `
-                    <div class="habit-text">${habit.text}</div>
-                    <div class="button-container">
-                        <button class="habit-button success-btn" onclick="selectHabit(${index}, true)">Выполнил</button>
-                        <button class="habit-button fail-btn" onclick="selectHabit(${index}, false)">Провал</button>
-                    </div>
-                `;
-                container.appendChild(habitCard);
-            });
-        }
-        
-        function selectHabit(index, success) {
-            const buttons = document.querySelectorAll(#habitsContainer .habit-card:nth-child(${index + 1}) .habit-button);
-            
-            if (success) {
-                buttons[0].classList.add('button-selected');
-                buttons[1].style.display = 'none';
-                if (habitStatus[index] !== true) {
-                    completedCount++;
-                }
+            if (savedDate === today && savedHabits) {
+                habits = JSON.parse(savedHabits);
+                updateUI();
             } else {
-                buttons[1].classList.add('button-selected');
-                buttons[0].style.display = 'none';
-                if (habitStatus[index] === true) {
-                    completedCount--;
-                }
+                // Новый день - сброс привычек
+                habits.forEach(habit => habit.completed = false);
+                localStorage.setItem('gigantmen-date', today);
+                updateProgress();
+            }
+        }
+
+        // Сохранение данных
+        function saveData() {
+            localStorage.setItem('gigantmen-habits', JSON.stringify(habits));
+            localStorage.setItem('gigantmen-date', new Date().toDateString());
+        }
+
+        // Отметка привычки
+        function markHabit(index, action) {
+            if (action === 'done') {
+                habits[index].completed = true;
             }
             
-            habitStatus[index] = success;
+            // Отключение кнопок для этой привычки
+            const habitCard = document.querySelectorAll('.habit-card')[index];
+            const buttons = habitCard.querySelectorAll('.habit-button');
+            buttons.forEach(btn => btn.disabled = true);
+            
+            // Визуальная обратная связь
+            if (action === 'done') {
+                habitCard.style.background = 'rgba(0, 255, 136, 0.1)';
+                habitCard.style.borderColor = 'rgba(0, 255, 136, 0.5)';
+            } else {
+                habitCard.style.background = 'rgba(255, 107, 107, 0.1)';
+                habitCard.style.borderColor = 'rgba(255, 107, 107, 0.5)';
+            }
+            
             updateProgress();
-            checkAllAnswered();
+            saveData();
         }
-        
+
+        // Обновление прогресса
         function updateProgress() {
-            const progressFill = document.getElementById('progressFill');
-            const progressText = document.getElementById('progressText');
-            const percentage = (completedCount / habits.length) * 100;
+            const completed = habits.filter(habit => habit.completed).length;
+            const total = habits.length;
+            const percentage = (completed / total) * 100;
             
-            progressFill.style.width = percentage + '%';
-            progressText.textContent = ${completedCount} / ${habits.length} привычек;
+            document.getElementById('progressFill').style.width = percentage + '%';
+            document.getElementById('progressText').textContent = `${completed} из ${total} привычек выполнено`;
+            document.getElementById('completedToday').textContent = completed;
+            
+            // Обновление streak (упрощенная версия)
+            const streak = localStorage.getItem('gigantmen-streak') || 0;
+            document.getElementById('streak').textContent = streak;
         }
-        
-        function checkAllAnswered() {
-            const answeredCount = Object.keys(habitStatus).length;
-            
-            if (answeredCount === habits.length) {
-                showPenalties();
-            }
-        }
-        
-        function showPenalties() {
-            const penaltiesSection = document.getElementById('penaltiesSection');
-            const penaltiesList = document.getElementById('penaltiesList');
-            
-            penaltiesList.innerHTML = '';
-            
-            let hasPenalties = false;
-            
+
+        // Обновление UI при загрузке
+        function updateUI() {
             habits.forEach((habit, index) => {
-                if (habitStatus[index] === false && habit.penalty) {
-                    hasPenalties = true;
-                    const penaltyItem = document.createElement('div');
-                    penaltyItem.className = 'penalty-item';
-                    penaltyItem.innerHTML = `
-                        <div class="penalty-text">
-                            <strong>${habit.text}</strong><br>
-                            Штраф: ${habit.penalty}
-                        </div>
-                    `;
-                    penaltiesList.appendChild(penaltyItem);
+                if (habit.completed) {
+                    const habitCard = document.querySelectorAll('.habit-card')[index];
+                    const buttons = habitCard.querySelectorAll('.habit-button');
+                    buttons.forEach(btn => btn.disabled = true);
+                    habitCard.style.background = 'rgba(0, 255, 136, 0.1)';
+                    habitCard.style.borderColor = 'rgba(0, 255, 136, 0.5)';
                 }
             });
-            
-            if (hasPenalties) {
-                penaltiesSection.style.display = 'block';
-            } else {
-                const congratsItem = document.createElement('div');
-                congratsItem.className = 'penalty-item';
-                congratsItem.style.borderLeftColor = '#00ff88';
-                congratsItem.innerHTML = `
-                    <div class="penalty-text" style="color: #00ff88;">
-                        <strong>Поздравляем! Все привычки выполнены!</strong><br>
-                        Продолжайте в том же духе!
-                    </div>
-                `;
-                penaltiesList.appendChild(congratsItem);
-                penaltiesSection.style.display = 'block';
-            }
-        }
-        
-        function resetDay() {
-            habitStatus = {};
-            completedCount = 0;
-            document.getElementById('penaltiesSection').style.display = 'none';
-            initializeHabits();
             updateProgress();
         }
-        
-        // Инициализация приложения
-        initializeHabits();
-        updateProgress();
+
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData();
+        });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'975f70c66332afea',t:'MTc1NjMzODMwNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97638a4d65e7e86b',t:'MTc1NjM4MTI5My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
