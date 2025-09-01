@@ -156,14 +156,53 @@
             background: rgba(255, 107, 107, 0.15);
             border: 1px solid rgba(255, 107, 107, 0.4);
             border-radius: 8px;
-            padding: 8px 12px;
-            font-size: 0.85rem;
-            color: #ff6b6b;
-            font-style: italic;
-            min-width: 120px;
-            text-align: center;
-            display: none;
+            padding: 12px 15px;
+            font-size: 0.9rem;
+            color: #ffffff;
+            margin-top: 15px;
             animation: slideIn 0.3s ease-out;
+            line-height: 1.5;
+        }
+        
+        .motivation-display {
+            background: rgba(0, 245, 255, 0.15);
+            border: 1px solid rgba(0, 245, 255, 0.4);
+            border-radius: 8px;
+            padding: 12px 15px;
+            font-size: 0.9rem;
+            color: #ffffff;
+            margin-top: 15px;
+            animation: slideIn 0.3s ease-out;
+            line-height: 1.5;
+        }
+        
+        .motivation-display .motivation-title {
+            font-weight: 600;
+            color: #00f5ff;
+            margin-bottom: 8px;
+        }
+        
+        .motivation-display .motivation-quote {
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+        
+        .habit-card.completed {
+            background: rgba(0, 255, 136, 0.1) !important;
+            border-color: rgba(0, 255, 136, 0.5) !important;
+        }
+        
+        .habit-card.failed {
+            background: rgba(255, 107, 107, 0.1) !important;
+            border-color: rgba(255, 107, 107, 0.5) !important;
+        }
+        
+        .habit-card.completed .habit-text {
+            color: #00ff88;
+        }
+        
+        .habit-card.failed .habit-text {
+            color: #ff6b6b;
         }
         
         @keyframes slideIn {
@@ -289,6 +328,48 @@
             font-size: 0.95rem;
             color: #ffffff;
         }
+        
+        .motivations-container {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(0, 245, 255, 0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 245, 255, 0.3);
+        }
+        
+        .motivations-title {
+            font-size: 1.2rem;
+            color: #00f5ff;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .motivations-list {
+            list-style: none;
+        }
+        
+        .motivation-item {
+            background: rgba(0, 245, 255, 0.1);
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            border-left: 3px solid #00f5ff;
+            font-size: 0.9rem;
+            color: #ffffff;
+            line-height: 1.5;
+        }
+        
+        .motivation-item .habit-name {
+            font-weight: 600;
+            color: #00f5ff;
+            margin-bottom: 8px;
+        }
+        
+        .motivation-item .quote {
+            font-style: italic;
+            margin-bottom: 5px;
+        }
     </style>
 </head>
 <body>
@@ -312,377 +393,489 @@
         <div class="habit-card">
             <div class="habit-content">
                 <div class="habit-left">
-                    <div class="habit-text">🌅 Встал на фаджр</div>
+                    <div class="habit-text">Встал на фаджр</div>
                     <div class="button-container">
                         <button class="habit-button done" onclick="markHabit(0, 'done')">Выполнено</button>
                         <button class="habit-button skip" onclick="markHabit(0, 'skip')">Провал</button>
                     </div>
+                    <div class="penalty-display" id="penalty-0" style="display: none;">Штраф: 300 раз истигъфар</div>
+                    <div class="motivation-display" id="motivation-0" style="display: none;">
+                        <div class="motivation-title">Наставление:</div>
+                        <div class="motivation-quote">Пророк (ﷺ) сказал: "Кто совершает утренний намаз, тот находится под защитой Аллаха"</div>
+                    </div>
                 </div>
-                <div class="penalty-display" id="penalty-0">300 раз истигъфар</div>
             </div>
         </div>
         
         <div class="habit-card">
             <div class="habit-content">
                 <div class="habit-left">
-                    <div class="habit-text">🤲 Прочитал сунну до фаджра</div>
+                    <div class="habit-text">Прочитал сунну до фаджра</div>
                     <div class="button-container">
                         <button class="habit-button done" onclick="markHabit(1, 'done')">Выполнено</button>
                         <button class="habit-button skip" onclick="markHabit(1, 'skip')">Провал</button>
                     </div>
+                    <div class="motivation-display" id="motivation-1" style="display: none;">
+                        <div class="motivation-title">Наставление:</div>
+                        <div class="motivation-quote">Аиша (р.а.) сказала: "Пророк никогда не оставлял 2 ракаата перед фаджром"</div>
+                    </div>
                 </div>
-                <div class="penalty-display" id="penalty-1">Не штрафуется</div>
             </div>
         </div>
         
         <div class="habit-card">
             <div class="habit-content">
                 <div class="habit-left">
-                    <div class="habit-text">📿 Прочитал утренние азкары</div>
+                    <div class="habit-text">Прочитал утренние азкары</div>
                     <div class="button-container">
                         <button class="habit-button done" onclick="markHabit(2, 'done')">Выполнено</button>
                         <button class="habit-button skip" onclick="markHabit(2, 'skip')">Провал</button>
                     </div>
+                    <div class="penalty-display" id="penalty-2" style="display: none;">Штраф: прочти их щас</div>
+                    <div class="motivation-display" id="motivation-2" style="display: none;">
+                        <div class="motivation-title">Наставление:</div>
+                        <div class="motivation-quote">Пророк (ﷺ): "Кто скажет утром и вечером: Субхана-Ллахи ва би-хамдихи 100 раз, никто не придет в День воскресения с лучшим деянием"</div>
+                    </div>
                 </div>
-                <div class="penalty-display" id="penalty-2">прочти их щас</div>
             </div>
         </div>
         
         <div class="habit-card">
             <div class="habit-content">
                 <div class="habit-left">
-                    <div class="habit-text">📖 Прочитал 2 страницы Корана</div>
+                    <div class="habit-text">Прочитал 2 страницы Корана</div>
                     <div class="button-container">
                         <button class="habit-button done" onclick="markHabit(3, 'done')">Выполнено</button>
                         <button class="habit-button skip" onclick="markHabit(3, 'skip')">Провал</button>
                     </div>
+                    <div class="penalty-display" id="penalty-3" style="display: none;">Штраф: прочти днем или вечером</div>
+                    <div class="motivation-display" id="motivation-3" style="display: none;">
+                        <div class="motivation-title">Наставление:</div>
+                        <div class="motivation-quote">Аллах сказал: "И Мы ниспослали Коран как исцеление и милость для верующих" (17:82)</div>
+                    </div>
                 </div>
-                <div class="penalty-display" id="penalty-3">прочти днем или вечером</div>
             </div>
         </div>
         
         <div class="habit-card">
             <div class="habit-content">
                 <div class="habit-left">
-                    <div class="habit-text">🤸‍♂️ Сделал зарядку или растяжку</div>
+                    <div class="habit-text">Сделал зарядку или растяжку</div>
                     <div class="button-container">
                         <button class="habit-button done" onclick="markHabit(4, 'done')">Выполнено</button>
                         <button class="habit-button skip" onclick="markHabit(4, 'skip')">Провал</button>
                     </div>
+                    <div class="penalty-display" id="penalty-4" style="display: none;">Штраф: сходи на турники</div>
+                    <div class="motivation-display" id="motivation-4" style="display: none;">
+                        <div class="motivation-title">Наставление:</div>
+                        <div class="motivation-quote">Пророк (ﷺ) сказал: "Сильный верующий лучше и более любим Аллахом, чем слабый верующий"</div>
+                    </div>
                 </div>
-                <div class="penalty-display" id="penalty-4">сходи на турники</div>
             </div>
         </div>
         
         <div class="habit-card">
             <div class="habit-content">
                 <div class="habit-left">
-                    <div class="habit-text">🏃‍♂️ Сделал пробежку или прогулку на свежем воздухе</div>
+                    <div class="habit-text">Сделал пробежку или прогулку на свежем воздухе</div>
                     <div class="button-container">
                         <button class="habit-button done" onclick="markHabit(5, 'done')">Выполнено</button>
                         <button class="habit-button skip" onclick="markHabit(5, 'skip')">Провал</button>
                     </div>
+                    <div class="penalty-display" id="penalty-5" style="display: none;">Штраф: погуляй вечером</div>
+                    <div class="motivation-display" id="motivation-5" style="display: none;">
+                        <div class="motivation-title">Наставление:</div>
+                        <div class="motivation-quote">Умар (р.а.) сказал: "Обучайте ваших детей плаванию, стрельбе из лука и верховой езде"</div>
+                    </div>
                 </div>
-                <div class="penalty-display" id="penalty-5">погуляй вечером</div>
             </div>
         </div>
         
         <div class="habit-card">
             <div class="habit-content">
                 <div class="habit-left">
-                    <div class="habit-text">🥗 Полезный завтрак</div>
+                    <div class="habit-text">Полезный завтрак</div>
                     <div class="button-container">
                         <button class="habit-button done" onclick="markHabit(6, 'done')">Выполнено</button>
                         <button class="habit-button skip" onclick="markHabit(6, 'skip')">Провал</button>
                     </div>
+                    <div class="penalty-display" id="penalty-6" style="display: none;">Штраф: не ешь вредное до конца дня</div>
+                    <div class="motivation-display" id="motivation-6" style="display: none;">
+                        <div class="motivation-title">Наставление:</div>
+                        <div class="motivation-quote">Пророк (ﷺ): "Сын Адама не наполняет сосуда хуже своего желудка"</div>
+                    </div>
                 </div>
-                <div class="penalty-display" id="penalty-6">не ешь вредное до конца дня</div>
             </div>
         </div>
         
         <div class="habit-card">
             <div class="habit-content">
                 <div class="habit-left">
-                    <div class="habit-text">🕌 Сделал духа-намаз</div>
+                    <div class="habit-text">Сделал духа-намаз</div>
                     <div class="button-container">
                         <button class="habit-button done" onclick="markHabit(7, 'done')">Выполнено</button>
                         <button class="habit-button skip" onclick="markHabit(7, 'skip')">Провал</button>
                     </div>
+                    <div class="penalty-display" id="penalty-7" style="display: none;">Штраф: 100 салаватов</div>
+                    <div class="motivation-display" id="motivation-7" style="display: none;">
+                        <div class="motivation-title">Наставление:</div>
+                        <div class="motivation-quote">Пророк (ﷺ) сказал: "Кто совершит 12 ракаатов сунны в день, Аллах построит ему дом в Раю"</div>
+                    </div>
                 </div>
-                <div class="penalty-display" id="penalty-7">100 салаватов</div>
             </div>
         </div>
         
         <div class="habit-card">
             <div class="habit-content">
                 <div class="habit-left">
-                    <div class="habit-text">☀️ Совершил зухр намаз вовремя и со смирением</div>
+                    <div class="habit-text">Совершил зухр намаз вовремя и со смирением</div>
                     <div class="button-container">
                         <button class="habit-button done" onclick="markHabit(8, 'done')">Выполнено</button>
                         <button class="habit-button skip" onclick="markHabit(8, 'skip')">Провал</button>
                     </div>
+                    <div class="penalty-display" id="penalty-8" style="display: none;">Штраф: сделай дуа за свое сердце</div>
+                    <div class="motivation-display" id="motivation-8" style="display: none;">
+                        <div class="motivation-title">Наставление:</div>
+                        <div class="motivation-quote">Аллах сказал: "Поистине, намаз удерживает от мерзости и предосудительного" (29:45)</div>
+                    </div>
                 </div>
-                <div class="penalty-display" id="penalty-8">сделай дуа за свое сердце</div>
             </div>
         </div>
         
         <div class="habit-card">
             <div class="habit-content">
                 <div class="habit-left">
-                    <div class="habit-text">💼 Работал без прокрастинации и на совесть</div>
+                    <div class="habit-text">Работал без прокрастинации и на совесть</div>
                     <div class="button-container">
                         <button class="habit-button done" onclick="markHabit(9, 'done')">Выполнено</button>
                         <button class="habit-button skip" onclick="markHabit(9, 'skip')">Провал</button>
                     </div>
+                    <div class="penalty-display" id="penalty-9" style="display: none;">Штраф: спланируй день на завтра</div>
+                    <div class="motivation-display" id="motivation-9" style="display: none;">
+                        <div class="motivation-title">Наставление:</div>
+                        <div class="motivation-quote">Пророк (ﷺ): "Аллах любит, когда один из вас выполняет работу качественно"</div>
+                    </div>
                 </div>
-                <div class="penalty-display" id="penalty-9">спланируй день на завтра</div>
             </div>
         </div>
         
         <div class="habit-card">
             <div class="habit-content">
                 <div class="habit-left">
-                    <div class="habit-text">📱 Не залипал в телефоне</div>
+                    <div class="habit-text">Не залипал в телефоне</div>
                     <div class="button-container">
                         <button class="habit-button done" onclick="markHabit(10, 'done')">Выполнено</button>
                         <button class="habit-button skip" onclick="markHabit(10, 'skip')">Провал</button>
                     </div>
+                    <div class="penalty-display" id="penalty-10" style="display: none;">Штраф: удали то из-за чего залип на 3 дня</div>
+                    <div class="motivation-display" id="motivation-10" style="display: none;">
+                        <div class="motivation-title">Наставление:</div>
+                        <div class="motivation-quote">Пророк (ﷺ): "Из признаков хорошего Ислама человека - оставление им того, что его не касается"</div>
+                    </div>
                 </div>
-                <div class="penalty-display" id="penalty-10">удали то из-за чего залип на 3 дня</div>
             </div>
         </div>
         
         <div class="habit-card">
             <div class="habit-content">
                 <div class="habit-left">
-                    <div class="habit-text">🚫 Избегал недозволенное (взгляды, музыку, сквернословие)</div>
+                    <div class="habit-text">Избегал недозволенное (взгляды, музыку, сквернословие)</div>
                     <div class="button-container">
                         <button class="habit-button done" onclick="markHabit(11, 'done')">Выполнено</button>
                         <button class="habit-button skip" onclick="markHabit(11, 'skip')">Провал</button>
                     </div>
+                    <div class="penalty-display" id="penalty-11" style="display: none;">Штраф: 100 раз истигъфар</div>
+                    <div class="motivation-display" id="motivation-11" style="display: none;">
+                        <div class="motivation-title">Наставление:</div>
+                        <div class="motivation-quote">Аллах сказал: "Скажи верующим мужчинам, пусть они потупят свои взоры" (24:30)</div>
+                    </div>
                 </div>
-                <div class="penalty-display" id="penalty-11">100 раз истигъфар</div>
             </div>
         </div>
         
         <div class="habit-card">
             <div class="habit-content">
                 <div class="habit-left">
-                    <div class="habit-text">🌇 Совершил аср намаз вовремя и со смирением</div>
+                    <div class="habit-text">Совершил аср намаз вовремя и со смирением</div>
                     <div class="button-container">
                         <button class="habit-button done" onclick="markHabit(12, 'done')">Выполнено</button>
                         <button class="habit-button skip" onclick="markHabit(12, 'skip')">Провал</button>
                     </div>
+                    <div class="penalty-display" id="penalty-12" style="display: none;">Штраф: 100 раз истигъфар</div>
+                    <div class="motivation-display" id="motivation-12" style="display: none;">
+                        <div class="motivation-title">Наставление:</div>
+                        <div class="motivation-quote">Пророк (ﷺ): "Кто пропустит послеполуденный намаз, тот словно лишился семьи и имущества"</div>
+                    </div>
                 </div>
-                <div class="penalty-display" id="penalty-12">100 раз истигъфар</div>
             </div>
         </div>
         
         <div class="habit-card">
             <div class="habit-content">
                 <div class="habit-left">
-                    <div class="habit-text">😌 Избегал гнева и ссор</div>
+                    <div class="habit-text">Избегал гнева и ссор</div>
                     <div class="button-container">
                         <button class="habit-button done" onclick="markHabit(13, 'done')">Выполнено</button>
                         <button class="habit-button skip" onclick="markHabit(13, 'skip')">Провал</button>
                     </div>
+                    <div class="penalty-display" id="penalty-13" style="display: none;">Штраф: почитай Коран 2 страницы</div>
+                    <div class="motivation-display" id="motivation-13" style="display: none;">
+                        <div class="motivation-title">Наставление:</div>
+                        <div class="motivation-quote">Пророк (ﷺ) сказал: "Не гневайся" - повторил это три раза</div>
+                    </div>
                 </div>
-                <div class="penalty-display" id="penalty-13">почитай Коран 2 страницы</div>
             </div>
         </div>
         
         <div class="habit-card">
             <div class="habit-content">
                 <div class="habit-left">
-                    <div class="habit-text">💝 Сделал доброе дело помощь или милостыня</div>
+                    <div class="habit-text">Сделал доброе дело помощь или милостыня</div>
                     <div class="button-container">
                         <button class="habit-button done" onclick="markHabit(14, 'done')">Выполнено</button>
                         <button class="habit-button skip" onclick="markHabit(14, 'skip')">Провал</button>
                     </div>
+                    <div class="penalty-display" id="penalty-14" style="display: none;">Штраф: сделай щас садакъа</div>
+                    <div class="motivation-display" id="motivation-14" style="display: none;">
+                        <div class="motivation-title">Наставление:</div>
+                        <div class="motivation-quote">Аллах сказал: "Те, которые расходуют свое имущество на пути Аллаха... получат награду у своего Господа" (2:262)</div>
+                    </div>
                 </div>
-                <div class="penalty-display" id="penalty-14">сделай щас садакъа</div>
             </div>
         </div>
         
         <div class="habit-card">
             <div class="habit-content">
                 <div class="habit-left">
-                    <div class="habit-text">🌆 Прочитал вечерние азкары</div>
+                    <div class="habit-text">Прочитал вечерние азкары</div>
                     <div class="button-container">
                         <button class="habit-button done" onclick="markHabit(15, 'done')">Выполнено</button>
                         <button class="habit-button skip" onclick="markHabit(15, 'skip')">Провал</button>
                     </div>
+                    <div class="penalty-display" id="penalty-15" style="display: none;">Штраф: Прочти их щас</div>
+                    <div class="motivation-display" id="motivation-15" style="display: none;">
+                        <div class="motivation-title">Наставление:</div>
+                        <div class="motivation-quote">Пророк (ﷺ): "Кто скажет вечером: Радыту би-Ллахи раббан... будет доволен Аллах им"</div>
+                    </div>
                 </div>
-                <div class="penalty-display" id="penalty-15">Прочти их щас</div>
             </div>
         </div>
         
         <div class="habit-card">
             <div class="habit-content">
                 <div class="habit-left">
-                    <div class="habit-text">🌅 Совершил магриб намаз вовремя и со смирением</div>
+                    <div class="habit-text">Совершил магриб намаз вовремя и со смирением</div>
                     <div class="button-container">
                         <button class="habit-button done" onclick="markHabit(16, 'done')">Выполнено</button>
                         <button class="habit-button skip" onclick="markHabit(16, 'skip')">Провал</button>
                     </div>
+                    <div class="penalty-display" id="penalty-16" style="display: none;">Штраф: Выйди и поразмышляй над собой на едине</div>
+                    <div class="motivation-display" id="motivation-16" style="display: none;">
+                        <div class="motivation-title">Наставление:</div>
+                        <div class="motivation-quote">Пророк (ﷺ): "Между человеком и неверием - оставление намаза"</div>
+                    </div>
                 </div>
-                <div class="penalty-display" id="penalty-16">Выйди и поразмышляй над собой на едине</div>
             </div>
         </div>
         
         <div class="habit-card">
             <div class="habit-content">
                 <div class="habit-left">
-                    <div class="habit-text">👨‍👩‍👧‍👦 Пообщался с семьёй без телефона и был добр с ними</div>
+                    <div class="habit-text">Пообщался с семьёй без телефона и был добр с ними</div>
                     <div class="button-container">
                         <button class="habit-button done" onclick="markHabit(17, 'done')">Выполнено</button>
                         <button class="habit-button skip" onclick="markHabit(17, 'skip')">Провал</button>
                     </div>
+                    <div class="penalty-display" id="penalty-17" style="display: none;">Штраф: сделай подарок ому с кем ты был груб</div>
+                    <div class="motivation-display" id="motivation-17" style="display: none;">
+                        <div class="motivation-title">Наставление:</div>
+                        <div class="motivation-quote">Пророк (ﷺ): "Лучший из людей тот, кто лучше относится к своей семье"</div>
+                    </div>
                 </div>
-                <div class="penalty-display" id="penalty-17">сделай подарок ому с кем ты был груб</div>
             </div>
         </div>
         
         <div class="habit-card">
             <div class="habit-content">
                 <div class="habit-left">
-                    <div class="habit-text">📚 Прочитал хотя бы 10 страниц книги</div>
+                    <div class="habit-text">Прочитал хотя бы 10 страниц книги</div>
                     <div class="button-container">
                         <button class="habit-button done" onclick="markHabit(18, 'done')">Выполнено</button>
                         <button class="habit-button skip" onclick="markHabit(18, 'skip')">Провал</button>
                     </div>
+                    <div class="penalty-display" id="penalty-18" style="display: none;">Штраф: читай субхьанаЛлагь</div>
+                    <div class="motivation-display" id="motivation-18" style="display: none;">
+                        <div class="motivation-title">Наставление:</div>
+                        <div class="motivation-quote">Пророк (ﷺ): "Ищите знания от колыбели до могилы"</div>
+                    </div>
                 </div>
-                <div class="penalty-display" id="penalty-18">читай субхьанаЛлагь</div>
             </div>
         </div>
         
         <div class="habit-card">
             <div class="habit-content">
                 <div class="habit-left">
-                    <div class="habit-text">🌙 Совершил иша намаз вовремя и со смирением</div>
+                    <div class="habit-text">Совершил иша намаз вовремя и со смирением</div>
                     <div class="button-container">
                         <button class="habit-button done" onclick="markHabit(19, 'done')">Выполнено</button>
                         <button class="habit-button skip" onclick="markHabit(19, 'skip')">Провал</button>
                     </div>
+                    <div class="penalty-display" id="penalty-19" style="display: none;">Штраф: Встань на ночные намазы</div>
+                    <div class="motivation-display" id="motivation-19" style="display: none;">
+                        <div class="motivation-title">Наставление:</div>
+                        <div class="motivation-quote">Пророк (ﷺ): "Кто совершит иша в джамаате, тот словно простоял полночи в молитве"</div>
+                    </div>
                 </div>
-                <div class="penalty-display" id="penalty-19">Встань на ночные намазы</div>
             </div>
         </div>
         
         <div class="habit-card">
             <div class="habit-content">
                 <div class="habit-left">
-                    <div class="habit-text">🤲 Прочитал все сунны намазов дня</div>
+                    <div class="habit-text">Прочитал все сунны намазов дня</div>
                     <div class="button-container">
                         <button class="habit-button done" onclick="markHabit(20, 'done')">Выполнено</button>
                         <button class="habit-button skip" onclick="markHabit(20, 'skip')">Провал</button>
                     </div>
+                    <div class="penalty-display" id="penalty-20" style="display: none;">Штраф: 100 истигъфар</div>
+                    <div class="motivation-display" id="motivation-20" style="display: none;">
+                        <div class="motivation-title">Наставление:</div>
+                        <div class="motivation-quote">Умм Хабиба (р.а.): "Кто совершит 12 ракаатов сунны, Аллах построит ему дом в Раю"</div>
+                    </div>
                 </div>
-                <div class="penalty-display" id="penalty-20">100 истигъфар</div>
             </div>
         </div>
         
         <div class="habit-card">
             <div class="habit-content">
                 <div class="habit-left">
-                    <div class="habit-text">🍽️ Избежал переедание и вредную еду</div>
+                    <div class="habit-text">Избежал переедание и вредную еду</div>
                     <div class="button-container">
                         <button class="habit-button done" onclick="markHabit(21, 'done')">Выполнено</button>
                         <button class="habit-button skip" onclick="markHabit(21, 'skip')">Провал</button>
                     </div>
+                    <div class="penalty-display" id="penalty-21" style="display: none;">Штраф: завтра постись</div>
+                    <div class="motivation-display" id="motivation-21" style="display: none;">
+                        <div class="motivation-title">Наставление:</div>
+                        <div class="motivation-quote">Пророк (ﷺ): "Постись и будешь здоров"</div>
+                    </div>
                 </div>
-                <div class="penalty-display" id="penalty-21">завтра постись</div>
             </div>
         </div>
         
         <div class="habit-card">
             <div class="habit-content">
                 <div class="habit-left">
-                    <div class="habit-text">🔤 Учил арабский или английский язык</div>
+                    <div class="habit-text">Учил арабский или английский язык</div>
                     <div class="button-container">
                         <button class="habit-button done" onclick="markHabit(22, 'done')">Выполнено</button>
                         <button class="habit-button skip" onclick="markHabit(22, 'skip')">Провал</button>
                     </div>
+                    <div class="penalty-display" id="penalty-22" style="display: none;">Штраф: Завтра обязательно учи</div>
+                    <div class="motivation-display" id="motivation-22" style="display: none;">
+                        <div class="motivation-title">Наставление:</div>
+                        <div class="motivation-quote">Пророк (ﷺ): "Кто изучил язык народа, тот в безопасности от их козней"</div>
+                    </div>
                 </div>
-                <div class="penalty-display" id="penalty-22">Завтра обязательно учи</div>
             </div>
         </div>
         
         <div class="habit-card">
             <div class="habit-content">
                 <div class="habit-left">
-                    <div class="habit-text">📖 Учил коран или хадисы</div>
+                    <div class="habit-text">Учил коран или хадисы</div>
                     <div class="button-container">
                         <button class="habit-button done" onclick="markHabit(23, 'done')">Выполнено</button>
                         <button class="habit-button skip" onclick="markHabit(23, 'skip')">Провал</button>
                     </div>
+                    <div class="penalty-display" id="penalty-23" style="display: none;">Штраф: Учи или повторяй хоть что то</div>
+                    <div class="motivation-display" id="motivation-23" style="display: none;">
+                        <div class="motivation-title">Наставление:</div>
+                        <div class="motivation-quote">Пророк (ﷺ): "Лучший из вас тот, кто изучает Коран и обучает ему других"</div>
+                    </div>
                 </div>
-                <div class="penalty-display" id="penalty-23">Учи или повторяй хоть что то</div>
             </div>
         </div>
         
         <div class="habit-card">
             <div class="habit-content">
                 <div class="habit-left">
-                    <div class="habit-text">👑 Прочитал суру «Аль-Мульк»</div>
+                    <div class="habit-text">Прочитал суру «Аль-Мульк»</div>
                     <div class="button-container">
                         <button class="habit-button done" onclick="markHabit(24, 'done')">Выполнено</button>
                         <button class="habit-button skip" onclick="markHabit(24, 'skip')">Провал</button>
                     </div>
+                    <div class="motivation-display" id="motivation-24" style="display: none;">
+                        <div class="motivation-title">Наставление:</div>
+                        <div class="motivation-quote">Пророк (ﷺ): "Сура из Корана заступится за своего чтеца, пока он не будет прощен - это сура Аль-Мульк"</div>
+                    </div>
                 </div>
-                <div class="penalty-display" id="penalty-24">Не штрафуется</div>
             </div>
         </div>
         
         <div class="habit-card">
             <div class="habit-content">
                 <div class="habit-left">
-                    <div class="habit-text">🌙 Прочитал азкары перед сном</div>
+                    <div class="habit-text">Прочитал азкары перед сном</div>
                     <div class="button-container">
                         <button class="habit-button done" onclick="markHabit(25, 'done')">Выполнено</button>
                         <button class="habit-button skip" onclick="markHabit(25, 'skip')">Провал</button>
                     </div>
+                    <div class="motivation-display" id="motivation-25" style="display: none;">
+                        <div class="motivation-title">Наставление:</div>
+                        <div class="motivation-quote">Пророк (ﷺ) читал Аят аль-Курси перед сном для защиты от шайтана</div>
+                    </div>
                 </div>
-                <div class="penalty-display" id="penalty-25">Не штрафуется</div>
             </div>
         </div>
         
         <div class="habit-card">
             <div class="habit-content">
                 <div class="habit-left">
-                    <div class="habit-text">🤲 Поблагодарил Аллаха за день</div>
+                    <div class="habit-text">Поблагодарил Аллаха за день</div>
                     <div class="button-container">
                         <button class="habit-button done" onclick="markHabit(26, 'done')">Выполнено</button>
                         <button class="habit-button skip" onclick="markHabit(26, 'skip')">Провал</button>
                     </div>
+                    <div class="motivation-display" id="motivation-26" style="display: none;">
+                        <div class="motivation-title">Наставление:</div>
+                        <div class="motivation-quote">Аллах сказал: "Если вы будете благодарны, то Я непременно приумножу вам" (14:7)</div>
+                    </div>
                 </div>
-                <div class="penalty-display" id="penalty-26">Не штрафуется</div>
             </div>
         </div>
         
         <div class="habit-card">
             <div class="habit-content">
                 <div class="habit-left">
-                    <div class="habit-text">😴 Заснул без телефона</div>
+                    <div class="habit-text">Заснул без телефона</div>
                     <div class="button-container">
                         <button class="habit-button done" onclick="markHabit(27, 'done')">Выполнено</button>
                         <button class="habit-button skip" onclick="markHabit(27, 'skip')">Провал</button>
                     </div>
+                    <div class="penalty-display" id="penalty-27" style="display: none;">Штраф: Удали то из-за чего отвлекался на 3 дня</div>
+                    <div class="motivation-display" id="motivation-27" style="display: none;">
+                        <div class="motivation-title">Наставление:</div>
+                        <div class="motivation-quote">Пророк (ﷺ): "Когда ложишься спать, соверши омовение как для намаза"</div>
+                    </div>
                 </div>
-                <div class="penalty-display" id="penalty-27">Удали то из-за чего отвлекался на 3 дня</div>
             </div>
         </div>
         
         <div class="habit-card">
             <div class="habit-content">
                 <div class="habit-left">
-                    <div class="habit-text">🌃 Встану на тахаджжуд и витр</div>
+                    <div class="habit-text">Встану на тахаджжуд и витр</div>
                     <div class="button-container">
                         <button class="habit-button done" onclick="markHabit(28, 'done')">Выполнено</button>
                         <button class="habit-button skip" onclick="markHabit(28, 'skip')">Провал</button>
                     </div>
+                    <div class="penalty-display" id="penalty-28" style="display: none;">Штраф: Побойся Аллагьа субхьанаЛлагь</div>
+                    <div class="motivation-display" id="motivation-28" style="display: none;">
+                        <div class="motivation-title">Наставление:</div>
+                        <div class="motivation-quote">Аллах сказал: "Они отрывают свои бока от постелей, взывая к своему Господу со страхом и надеждой" (32:16)</div>
+                    </div>
                 </div>
-                <div class="penalty-display" id="penalty-28">Побойся Аллагьа субхьанаЛлагь</div>
             </div>
         </div>
         
@@ -694,50 +887,115 @@
             <div class="penalties-title">Твои штрафы:</div>
             <div class="penalties-list" id="penaltiesList"></div>
         </div>
+        
+        <div class="motivations-container" id="motivationsContainer" style="display: none;">
+            <div class="motivations-title">Наставления и мотивация:</div>
+            <div class="motivations-list" id="motivationsList"></div>
+        </div>
     </div>
 
     <script>
-        // Мотивирующие аяты
+        // Мотивирующие аяты (перевод Кулиева) - полные аяты
         const verses = [
             {
-                arabic: "وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مَخْرَجًا",
-                translation: "И кто боится Аллаха, тому Он создаст выход",
-                reference: "Коран 65:2"
+                arabic: "وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مَخْرَجًا ۝ وَيَرْزُقْهُ مِنْ حَيْثُ لَا يَحْتَسِبُ ۚ وَمَن يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ ۚ إِنَّ اللَّهَ بَالِغُ أَمْرِهِ ۚ قَدْ جَعَلَ اللَّهُ لِكُلِّ شَيْءٍ قَدْرًا",
+                translation: "А тому, кто боится Аллаха, Он создает выход и наделяет его уделом оттуда, откуда он даже не предполагает. Аллаха довольно для того, кто уповает на Него. Воистину, Аллах доводит до конца Свое дело. Аллах предопределил меру для каждой вещи",
+                reference: "Коран 65:2-3"
             },
             {
-                arabic: "وَمَن يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ",
-                translation: "А кто полагается на Аллаха, то Он для него достаточен",
-                reference: "Коран 65:3"
+                arabic: "فَإِنَّ مَعَ الْعُسْرِ يُسْرًا ۝ إِنَّ مَعَ الْعُسْرِ يُسْرًا",
+                translation: "Воистину, за каждой тягостью наступает облегчение. Воистину, за каждой тягостью наступает облегчение",
+                reference: "Коран 94:5-6"
             },
             {
-                arabic: "إِنَّ مَعَ الْعُسْرِ يُسْرًا",
-                translation: "Поистине, вместе с трудностью приходит облегчение",
-                reference: "Коран 94:6"
+                arabic: "وَمَا أَصَابَكُم مِّن مُّصِيبَةٍ فَبِمَا كَسَبَتْ أَيْدِيكُمْ وَيَعْفُو عَن كَثِيرٍ",
+                translation: "Любое несчастье, которое постигает вас, происходит по причине того, что совершили ваши руки. Но Он прощает многое",
+                reference: "Коран 42:30"
             },
             {
-                arabic: "وَاللَّهُ يُحِبُّ الصَّابِرِينَ",
-                translation: "И Аллах любит терпеливых",
-                reference: "Коран 3:146"
+                arabic: "وَبَشِّرِ الصَّابِرِينَ ۝ الَّذِينَ إِذَا أَصَابَتْهُم مُّصِيبَةٌ قَالُوا إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ",
+                translation: "Обрадуй же терпеливых, которые, когда их постигает беда, говорят: «Воистину, мы принадлежим Аллаху и к Нему вернемся»",
+                reference: "Коран 2:155-156"
             },
             {
-                arabic: "وَبَشِّرِ الصَّابِرِينَ",
-                translation: "И обрадуй терпеливых",
-                reference: "Коран 2:155"
-            },
-            {
-                arabic: "فَاذْكُرُونِي أَذْكُرْكُمْ",
-                translation: "Поминайте Меня, и Я буду поминать вас",
+                arabic: "فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي وَلَا تَكْفُرُونِ",
+                translation: "Поминайте Меня, и Я буду помнить о вас. Благодарите Меня и не будьте неблагодарными",
                 reference: "Коран 2:152"
             },
             {
-                arabic: "وَمَن جَاهَدَ فَإِنَّمَا يُجَاهِدُ لِنَفْسِهِ",
-                translation: "Кто прилагает усилия, тот делает это для себя",
+                arabic: "وَمَن جَاهَدَ فَإِنَّمَا يُجَاهِدُ لِنَفْسِهِ ۚ إِنَّ اللَّهَ لَغَنِيٌّ عَنِ الْعَالَمِينَ",
+                translation: "Тот, кто сражается, сражается только для самого себя. Воистину, Аллах не нуждается в мирах",
                 reference: "Коран 29:6"
             },
             {
-                arabic: "وَأَن لَّيْسَ لِلْإِنسَانِ إِلَّا مَا سَعَىٰ",
-                translation: "И что человеку достанется только то, к чему он стремился",
-                reference: "Коран 53:39"
+                arabic: "وَأَن لَّيْسَ لِلْإِنسَانِ إِلَّا مَا سَعَىٰ ۝ وَأَنَّ سَعْيَهُ سَوْفَ يُرَىٰ ۝ ثُمَّ يُجْزَاهُ الْجَزَاءَ الْأَوْفَىٰ",
+                translation: "Человек получит только то, к чему он стремился. Его усилия будут увидены, а затем он получит воздаяние сполна",
+                reference: "Коран 53:39-41"
+            },
+            {
+                arabic: "وَاسْتَعِينُوا بِالصَّبْرِ وَالصَّلَاةِ ۚ وَإِنَّهَا لَكَبِيرَةٌ إِلَّا عَلَى الْخَاشِعِينَ",
+                translation: "Обращайтесь за помощью к терпению и намазу. Воистину, это тяжело для всех, кроме смиренных",
+                reference: "Коран 2:45"
+            },
+            {
+                arabic: "وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ ۚ عَلَيْهِ تَوَكَّلْتُ وَإِلَيْهِ أُنِيبُ",
+                translation: "Мой успех - только от Аллаха. На Него я уповаю и к Нему обращаюсь",
+                reference: "Коран 11:88"
+            },
+            {
+                arabic: "وَلَا تَيْأَسُوا مِن رَّوْحِ اللَّهِ ۖ إِنَّهُ لَا يَيْأَسُ مِن رَّوْحِ اللَّهِ إِلَّا الْقَوْمُ الْكَافِرُونَ",
+                translation: "Не отчаивайтесь в милости Аллаха, ибо в милости Аллаха отчаиваются только люди неверующие",
+                reference: "Коран 12:87"
+            },
+            {
+                arabic: "وَمَن يُؤْمِن بِاللَّهِ يَهْدِ قَلْبَهُ ۚ وَاللَّهُ بِكُلِّ شَيْءٍ عَلِيمٌ",
+                translation: "Тому, кто уверовал в Аллаха, Он укажет прямой путь его сердцу. Аллах ведает о всякой вещи",
+                reference: "Коран 64:11"
+            },
+            {
+                arabic: "إِنَّ اللَّهَ مَعَ الَّذِينَ اتَّقَوا وَّالَّذِينَ هُم مُّحْسِنُونَ",
+                translation: "Воистину, Аллах - с богобоязненными и с теми, кто творит добро",
+                reference: "Коран 16:128"
+            },
+            {
+                arabic: "مَنْ عَمِلَ صَالِحًا فَلِنَفْسِهِ ۖ وَمَنْ أَسَاءَ فَعَلَيْهَا ۗ وَمَا رَبُّكَ بِظَلَّامٍ لِّلْعَبِيدِ",
+                translation: "Кто поступает праведно, тот поступает во благо себе. А кто поступает дурно, тот поступает во вред себе. Твой Господь не притесняет рабов",
+                reference: "Коран 41:46"
+            },
+            {
+                arabic: "قُلْ يَا عِبَادِيَ الَّذِينَ أَسْرَفُوا عَلَىٰ أَنفُسِهِمْ لَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ ۚ إِنَّ اللَّهَ يَغْفِرُ الذُّنُوبَ جَمِيعًا ۚ إِنَّهُ هُوَ الْغَفُورُ الرَّحِيمُ",
+                translation: "Скажи: «О рабы Мои, которые излишествовали во вред самим себе! Не отчаивайтесь в милости Аллаха. Воистину, Аллах прощает все грехи, ибо Он - Прощающий, Милосердный»",
+                reference: "Коран 39:53"
+            },
+            {
+                arabic: "وَمَن يَشْكُرْ فَإِنَّمَا يَشْكُرُ لِنَفْسِهِ ۖ وَمَن كَفَرَ فَإِنَّ اللَّهَ غَنِيٌّ حَمِيدٌ",
+                translation: "Кто благодарен, тот благодарен во благо себе. А кто неблагодарен, то ведь Аллах - Богатый, Достохвальный",
+                reference: "Коран 27:40"
+            },
+            {
+                arabic: "وَاللَّهُ غَالِبٌ عَلَىٰ أَمْرِهِ وَلَٰكِنَّ أَكْثَرَ النَّاسِ لَا يَعْلَمُونَ",
+                translation: "Аллах властен над Своим повелением, но большинство людей не знает этого",
+                reference: "Коран 12:21"
+            },
+            {
+                arabic: "وَمَا عِندَ اللَّهِ خَيْرٌ وَأَبْقَىٰ ۗ أَفَلَا تَعْقِلُونَ",
+                translation: "То, что у Аллаха, лучше и долговечнее. Неужели вы не разумеете?",
+                reference: "Коран 28:60"
+            },
+            {
+                arabic: "لَا تَحْزَنْ إِنَّ اللَّهَ مَعَنَا ۖ فَأَنزَلَ اللَّهُ سَكِينَتَهُ عَلَيْهِ وَأَيَّدَهُ بِجُنُودٍ لَّمْ تَرَوْهَا",
+                translation: "Не печалься, ибо Аллах - с нами. Аллах ниспослал ему покой и поддержал его воинами, которых вы не видели",
+                reference: "Коран 9:40"
+            },
+            {
+                arabic: "وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مِنْ أَمْرِهِ يُسْرًا",
+                translation: "Тому, кто боится Аллаха, Он облегчает дела",
+                reference: "Коран 65:4"
+            },
+            {
+                arabic: "وَلَئِن شَكَرْتُمْ لَأَزِيدَنَّكُمْ ۖ وَلَئِن كَفَرْتُمْ إِنَّ عَذَابِي لَشَدِيدٌ",
+                translation: "Если вы будете благодарны, то Я непременно приумножу вам блага. А если вы будете неблагодарны, то ведь Мое наказание сурово",
+                reference: "Коран 14:7"
             }
         ];
 
@@ -751,37 +1009,37 @@
             document.getElementById('referenceText').textContent = verse.reference;
         }
 
-        // Состояние привычек
+        // Состояние привычек с мотивационными цитатами
         let habits = [
-            { name: 'Встал на фаджр', completed: null, penalty: '300 раз истигъфар' },
-            { name: 'Прочитал сунну до фаджра', completed: null, penalty: null },
-            { name: 'Прочитал утренние азкары', completed: null, penalty: 'прочти их щас' },
-            { name: 'Прочитал 2 страницы Корана', completed: null, penalty: 'прочти днем или вечером' },
-            { name: 'Сделал зарядку или растяжку', completed: null, penalty: 'сходи на турники' },
-            { name: 'Сделал пробежку или прогулку на свежем воздухе', completed: null, penalty: 'погуляй вечером' },
-            { name: 'Полезный завтрак', completed: null, penalty: 'не ешь вредное до конца дня' },
-            { name: 'Сделал духа-намаз', completed: null, penalty: '100 салаватов' },
-            { name: 'Совершил зухр намаз вовремя и со смирением', completed: null, penalty: 'сделай дуа за свое сердце' },
-            { name: 'Работал без прокрастинации и на совесть', completed: null, penalty: 'спланируй день на завтра' },
-            { name: 'Не залипал в телефоне', completed: null, penalty: 'удали то из-за чего залип на 3 дня' },
-            { name: 'Избегал недозволенное (взгляды, музыку, сквернословие)', completed: null, penalty: '100 раз истигъфар' },
-            { name: 'Совершил аср намаз вовремя и со смирением', completed: null, penalty: '100 раз истигъфар' },
-            { name: 'Избегал гнева и ссор', completed: null, penalty: 'почитай Коран 2 страницы' },
-            { name: 'Сделал доброе дело помощь или милостыня', completed: null, penalty: 'сделай щас садакъа' },
-            { name: 'Прочитал вечерние азкары', completed: null, penalty: 'Прочти их щас' },
-            { name: 'Совершил магриб намаз вовремя и со смирением', completed: null, penalty: 'Выйди и поразмышляй над собой на едине' },
-            { name: 'Пообщался с семьёй без телефона и был добр с ними', completed: null, penalty: 'сделай подарок ому с кем ты был груб' },
-            { name: 'Прочитал хотя бы 10 страниц книги', completed: null, penalty: 'читай субхьанаЛлагь' },
-            { name: 'Совершил иша намаз вовремя и со смирением', completed: null, penalty: 'Встань на ночные намазы' },
-            { name: 'Прочитал все сунны намазов дня', completed: null, penalty: '100 истигъфар' },
-            { name: 'Избежал переедание и вредную еду', completed: null, penalty: 'завтра постись' },
-            { name: 'Учил арабский или английский язык', completed: null, penalty: 'Завтра обязательно учи' },
-            { name: 'Учил коран или хадисы', completed: null, penalty: 'Учи или повторяй хоть что то' },
-            { name: 'Прочитал суру «Аль-Мульк»', completed: null, penalty: null },
-            { name: 'Прочитал азкары перед сном', completed: null, penalty: null },
-            { name: 'Поблагодарил Аллаха за день', completed: null, penalty: null },
-            { name: 'Заснул без телефона', completed: null, penalty: 'Удали то из-за чего отвлекался на 3 дня' },
-            { name: 'Встану на тахаджжуд и витр', completed: null, penalty: 'Побойся Аллагьа субхьанаЛлагь' }
+            { name: 'Встал на фаджр', completed: null, penalty: '300 раз истигъфар', motivation: 'Пророк (ﷺ) сказал: "Кто совершает утренний намаз, тот находится под защитой Аллаха"' },
+            { name: 'Прочитал сунну до фаджра', completed: null, penalty: null, motivation: 'Аиша (р.а.) сказала: "Пророк никогда не оставлял 2 ракаата перед фаджром"' },
+            { name: 'Прочитал утренние азкары', completed: null, penalty: 'прочти их щас', motivation: 'Пророк (ﷺ): "Кто скажет утром и вечером: Субхана-Ллахи ва би-хамдихи 100 раз, никто не придет в День воскресения с лучшим деянием"' },
+            { name: 'Прочитал 2 страницы Корана', completed: null, penalty: 'прочти днем или вечером', motivation: 'Аллах сказал: "И Мы ниспослали Коран как исцеление и милость для верующих" (17:82)' },
+            { name: 'Сделал зарядку или растяжку', completed: null, penalty: 'сходи на турники', motivation: 'Пророк (ﷺ) сказал: "Сильный верующий лучше и более любим Аллахом, чем слабый верующий"' },
+            { name: 'Сделал пробежку или прогулку на свежем воздухе', completed: null, penalty: 'погуляй вечером', motivation: 'Умар (р.а.) сказал: "Обучайте ваших детей плаванию, стрельбе из лука и верховой езде"' },
+            { name: 'Полезный завтрак', completed: null, penalty: 'не ешь вредное до конца дня', motivation: 'Пророк (ﷺ): "Сын Адама не наполняет сосуда хуже своего желудка"' },
+            { name: 'Сделал духа-намаз', completed: null, penalty: '100 салаватов', motivation: 'Пророк (ﷺ) сказал: "Кто совершит 12 ракаатов сунны в день, Аллах построит ему дом в Раю"' },
+            { name: 'Совершил зухр намаз вовремя и со смирением', completed: null, penalty: 'сделай дуа за свое сердце', motivation: 'Аллах сказал: "Поистине, намаз удерживает от мерзости и предосудительного" (29:45)' },
+            { name: 'Работал без прокрастинации и на совесть', completed: null, penalty: 'спланируй день на завтра', motivation: 'Пророк (ﷺ): "Аллах любит, когда один из вас выполняет работу качественно"' },
+            { name: 'Не залипал в телефоне', completed: null, penalty: 'удали то из-за чего залип на 3 дня', motivation: 'Пророк (ﷺ): "Из признаков хорошего Ислама человека - оставление им того, что его не касается"' },
+            { name: 'Избегал недозволенное (взгляды, музыку, сквернословие)', completed: null, penalty: '100 раз истигъфар', motivation: 'Аллах сказал: "Скажи верующим мужчинам, пусть они потупят свои взоры" (24:30)' },
+            { name: 'Совершил аср намаз вовремя и со смирением', completed: null, penalty: '100 раз истигъфар', motivation: 'Пророк (ﷺ): "Кто пропустит послеполуденный намаз, тот словно лишился семьи и имущества"' },
+            { name: 'Избегал гнева и ссор', completed: null, penalty: 'почитай Коран 2 страницы', motivation: 'Пророк (ﷺ) сказал: "Не гневайся" - повторил это три раза' },
+            { name: 'Сделал доброе дело помощь или милостыня', completed: null, penalty: 'сделай щас садакъа', motivation: 'Аллах сказал: "Те, которые расходуют свое имущество на пути Аллаха... получат награду у своего Господа" (2:262)' },
+            { name: 'Прочитал вечерние азкары', completed: null, penalty: 'Прочти их щас', motivation: 'Пророк (ﷺ): "Кто скажет вечером: Радыту би-Ллахи раббан... будет доволен Аллах им"' },
+            { name: 'Совершил магриб намаз вовремя и со смирением', completed: null, penalty: 'Выйди и поразмышляй над собой на едине', motivation: 'Пророк (ﷺ): "Между человеком и неверием - оставление намаза"' },
+            { name: 'Пообщался с семьёй без телефона и был добр с ними', completed: null, penalty: 'сделай подарок ому с кем ты был груб', motivation: 'Пророк (ﷺ): "Лучший из людей тот, кто лучше относится к своей семье"' },
+            { name: 'Прочитал хотя бы 10 страниц книги', completed: null, penalty: 'читай субхьанаЛлагь', motivation: 'Пророк (ﷺ): "Ищите знания от колыбели до могилы"' },
+            { name: 'Совершил иша намаз вовремя и со смирением', completed: null, penalty: 'Встань на ночные намазы', motivation: 'Пророк (ﷺ): "Кто совершит иша в джамаате, тот словно простоял полночи в молитве"' },
+            { name: 'Прочитал все сунны намазов дня', completed: null, penalty: '100 истигъфар', motivation: 'Умм Хабиба (р.а.): "Кто совершит 12 ракаатов сунны, Аллах построит ему дом в Раю"' },
+            { name: 'Избежал переедание и вредную еду', completed: null, penalty: 'завтра постись', motivation: 'Пророк (ﷺ): "Постись и будешь здоров"' },
+            { name: 'Учил арабский или английский язык', completed: null, penalty: 'Завтра обязательно учи', motivation: 'Пророк (ﷺ): "Кто изучил язык народа, тот в безопасности от их козней"' },
+            { name: 'Учил коран или хадисы', completed: null, penalty: 'Учи или повторяй хоть что то', motivation: 'Пророк (ﷺ): "Лучший из вас тот, кто изучает Коран и обучает ему других"' },
+            { name: 'Прочитал суру «Аль-Мульк»', completed: null, penalty: null, motivation: 'Пророк (ﷺ): "Сура из Корана заступится за своего чтеца, пока он не будет прощен - это сура Аль-Мульк"' },
+            { name: 'Прочитал азкары перед сном', completed: null, penalty: null, motivation: 'Пророк (ﷺ) читал Аят аль-Курси перед сном для защиты от шайтана' },
+            { name: 'Поблагодарил Аллаха за день', completed: null, penalty: null, motivation: 'Аллах сказал: "Если вы будете благодарны, то Я непременно приумножу вам" (14:7)' },
+            { name: 'Заснул без телефона', completed: null, penalty: 'Удали то из-за чего отвлекался на 3 дня', motivation: 'Пророк (ﷺ): "Когда ложишься спать, соверши омовение как для намаза"' },
+            { name: 'Встану на тахаджжуд и витр', completed: null, penalty: 'Побойся Аллагьа субхьанаЛлагь', motivation: 'Аллах сказал: "Они отрывают свои бока от постелей, взывая к своему Господу со страхом и надеждой" (32:16)' }
         ];
 
         // Загрузка данных из localStorage
@@ -810,23 +1068,27 @@
             habitCards.forEach((card, index) => {
                 const buttons = card.querySelectorAll('.habit-button');
                 const penaltyDisplay = document.getElementById(`penalty-${index}`);
+                const motivationDisplay = document.getElementById(`motivation-${index}`);
                 
                 // Показать все кнопки
                 buttons.forEach(button => button.style.display = 'flex');
                 
-                // Скрыть штрафы
+                // Скрыть штрафы и наставления
                 if (penaltyDisplay) {
                     penaltyDisplay.style.display = 'none';
                 }
+                if (motivationDisplay) {
+                    motivationDisplay.style.display = 'none';
+                }
                 
-                // Сбросить стили карточки
-                card.style.background = 'rgba(255, 255, 255, 0.05)';
-                card.style.borderColor = 'rgba(0, 245, 255, 0.2)';
+                // Сбросить классы карточки
+                card.classList.remove('completed', 'failed');
             });
             
             // Скрыть результаты и штрафы
             document.getElementById('resultContainer').style.display = 'none';
             document.getElementById('penaltiesContainer').style.display = 'none';
+            document.getElementById('motivationsContainer').style.display = 'none';
         }
 
         // Сохранение данных
@@ -843,19 +1105,39 @@
             const habitCard = document.querySelectorAll('.habit-card')[index];
             const buttons = habitCard.querySelectorAll('.habit-button');
             const penaltyDisplay = document.getElementById(`penalty-${index}`);
+            const motivationDisplay = document.getElementById(`motivation-${index}`);
             
             if (action === 'done') {
-                buttons[1].style.display = 'none'; // Скрыть кнопку "Провал"
-                habitCard.style.background = 'rgba(0, 255, 136, 0.1)';
-                habitCard.style.borderColor = 'rgba(0, 255, 136, 0.5)';
-            } else {
-                buttons[0].style.display = 'none'; // Скрыть кнопку "Выполнено"
-                habitCard.style.background = 'rgba(255, 107, 107, 0.1)';
-                habitCard.style.borderColor = 'rgba(255, 107, 107, 0.5)';
+                // Скрыть кнопку "Провал"
+                buttons[1].style.display = 'none';
+                // Добавить класс для зеленого оформления
+                habitCard.classList.add('completed');
+                habitCard.classList.remove('failed');
                 
-                // Показать штраф только при провале
-                if (habits[index].penalty) {
+                // Скрыть штраф и наставление если были показаны
+                if (penaltyDisplay) {
+                    penaltyDisplay.style.display = 'none';
+                }
+                if (motivationDisplay) {
+                    motivationDisplay.style.display = 'none';
+                }
+            } else {
+                // Скрыть кнопку "Выполнено"
+                buttons[0].style.display = 'none';
+                // Скрыть кнопку "Провал"
+                buttons[1].style.display = 'none';
+                // Добавить класс для красного оформления
+                habitCard.classList.add('failed');
+                habitCard.classList.remove('completed');
+                
+                // Показать штраф если есть
+                if (penaltyDisplay && habits[index].penalty) {
                     penaltyDisplay.style.display = 'block';
+                }
+                
+                // Показать наставление
+                if (motivationDisplay) {
+                    motivationDisplay.style.display = 'block';
                 }
             }
             
@@ -927,7 +1209,11 @@
                     penaltiesList.appendChild(penaltyItem);
                 });
             }
+            
+            // Наставления показываются сразу в карточках при провале
         }
+        
+        // Показать мотивационные цитаты - убрано, так как наставления показываются сразу в карточках
 
         // Обновление UI при загрузке
         function updateUI() {
@@ -936,19 +1222,26 @@
                     const habitCard = document.querySelectorAll('.habit-card')[index];
                     const buttons = habitCard.querySelectorAll('.habit-button');
                     const penaltyDisplay = document.getElementById(`penalty-${index}`);
+                    const motivationDisplay = document.getElementById(`motivation-${index}`);
                     
                     if (habit.completed === true) {
                         buttons[1].style.display = 'none'; // Скрыть кнопку "Провал"
-                        habitCard.style.background = 'rgba(0, 255, 136, 0.1)';
-                        habitCard.style.borderColor = 'rgba(0, 255, 136, 0.5)';
+                        habitCard.classList.add('completed');
+                        habitCard.classList.remove('failed');
                     } else {
                         buttons[0].style.display = 'none'; // Скрыть кнопку "Выполнено"
-                        habitCard.style.background = 'rgba(255, 107, 107, 0.1)';
-                        habitCard.style.borderColor = 'rgba(255, 107, 107, 0.5)';
+                        buttons[1].style.display = 'none'; // Скрыть кнопку "Провал"
+                        habitCard.classList.add('failed');
+                        habitCard.classList.remove('completed');
                         
-                        // Показать штраф если задача провалена
-                        if (habit.penalty) {
+                        // Показать штраф если есть
+                        if (habit.penalty && penaltyDisplay) {
                             penaltyDisplay.style.display = 'block';
+                        }
+                        
+                        // Показать наставление
+                        if (motivationDisplay) {
+                            motivationDisplay.style.display = 'block';
                         }
                     }
                 }
@@ -963,6 +1256,5 @@
             loadData();
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9783398ea4de8f2a',t:'MTc1NjcxMzUzMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9784a56025dc5d8d',t:'MTc1NjcyODQzMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
-
