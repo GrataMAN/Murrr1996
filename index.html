@@ -370,6 +370,37 @@
             font-style: italic;
             margin-bottom: 5px;
         }
+        
+        .reset-container {
+            margin-top: 30px;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .reset-button {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 15px 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+            border: 1px solid rgba(255, 107, 107, 0.5);
+        }
+        
+        .reset-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+            background: linear-gradient(45deg, #ff5252, #e53935);
+        }
+        
+        .reset-button:active {
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body>
@@ -892,6 +923,10 @@
             <div class="motivations-title">Наставления и мотивация:</div>
             <div class="motivations-list" id="motivationsList"></div>
         </div>
+        
+        <div class="reset-container">
+            <button class="reset-button" onclick="resetDay()">🔄 Сбросить день</button>
+        </div>
     </div>
 
     <script>
@@ -1250,11 +1285,58 @@
             checkAllCompleted();
         }
 
+        // Функция сброса дня
+        function resetDay() {
+            // Полный сброс всех данных
+            habits.forEach(habit => habit.completed = null);
+            
+            // Сброс UI для всех карточек
+            const habitCards = document.querySelectorAll('.habit-card');
+            habitCards.forEach((card, index) => {
+                const buttons = card.querySelectorAll('.habit-button');
+                const penaltyDisplay = document.getElementById(`penalty-${index}`);
+                const motivationDisplay = document.getElementById(`motivation-${index}`);
+                
+                // Показать все кнопки
+                buttons.forEach(button => {
+                    button.style.display = 'flex';
+                    button.disabled = false;
+                });
+                
+                // Скрыть штрафы и наставления
+                if (penaltyDisplay) {
+                    penaltyDisplay.style.display = 'none';
+                }
+                if (motivationDisplay) {
+                    motivationDisplay.style.display = 'none';
+                }
+                
+                // Сбросить классы карточки
+                card.classList.remove('completed', 'failed');
+            });
+            
+            // Скрыть результаты и штрафы
+            document.getElementById('resultContainer').style.display = 'none';
+            document.getElementById('penaltiesContainer').style.display = 'none';
+            document.getElementById('motivationsContainer').style.display = 'none';
+            
+            // Обновить прогресс
+            updateProgress();
+            
+            // Сохранить данные
+            saveData();
+            
+            // Показать новый аят
+            showRandomVerse();
+            
+            alert('День сброшен! Можете заново пройти все задачи.');
+        }
+
         // Инициализация при загрузке страницы
         document.addEventListener('DOMContentLoaded', function() {
             showRandomVerse();
             loadData();
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9784a56025dc5d8d',t:'MTc1NjcyODQzMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9784b90bf018d349',t:'MTc1NjcyOTIzOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
